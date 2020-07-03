@@ -9,21 +9,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
-import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
-
-import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -129,6 +120,6 @@ public class SignUp extends AppCompatActivity implements  View.OnClickListener {
     {
         Intent intent=new Intent(SignUp.this,SocialMediaActivity.class);
         startActivity(intent);
-
+       finish();
     }
 }

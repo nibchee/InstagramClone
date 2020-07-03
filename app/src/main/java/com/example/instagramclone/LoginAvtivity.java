@@ -1,7 +1,5 @@
 package com.example.instagramclone;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,6 +13,8 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.shashank.sony.fancytoastlib.FancyToast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginAvtivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -78,6 +78,8 @@ public class LoginAvtivity extends AppCompatActivity implements View.OnClickList
 
                 break;
             case R.id.btnSignUpLoginActivity:
+                Intent intent =new Intent(LoginAvtivity.this,SignUp.class);
+                startActivity(intent);
                 break;
         }
 
@@ -100,6 +102,7 @@ public class LoginAvtivity extends AppCompatActivity implements View.OnClickList
     {
         Intent intent=new Intent(LoginAvtivity.this,SocialMediaActivity.class);
         startActivity(intent);
+        finish();//to finish the current activity
 
     }
 }
