@@ -1,9 +1,11 @@
 package com.example.instagramclone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,10 +20,10 @@ import java.util.List;
 
 import androidx.fragment.app.Fragment;
 
-public class UsersTab extends Fragment
+public class UsersTab extends Fragment implements AdapterView.OnItemClickListener
 {
     private ListView  listview;
-    private ArrayList arrayList;
+    private ArrayList<String> arrayList;
     private ArrayAdapter arrayAdapter;
 
     public UsersTab() {
@@ -35,6 +37,10 @@ public class UsersTab extends Fragment
         listview=view.findViewById(R.id.listView);
         arrayList=new ArrayList();
         arrayAdapter=new ArrayAdapter(getContext(),android.R.layout.simple_list_item_1,arrayList);
+
+
+
+        listview.setOnItemClickListener(UsersTab.this);
 
         final TextView txtLoadingUsers=view.findViewById(R.id.txtLoadingUser);
         ParseQuery<ParseUser> parseQuery=ParseUser.getQuery();
@@ -60,5 +66,15 @@ public class UsersTab extends Fragment
             }
         });
         return view;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        Intent intent=new Intent(getContext(),UsersPost.class);
+        //pass value to another activity
+        intent.putExtra("username",arrayList.get(position));
+        startActivity(intent);
+
     }
 }
