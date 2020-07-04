@@ -30,7 +30,8 @@ public class UsersPost extends AppCompatActivity
     private  LinearLayout linearLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_post);
         linearLayout=findViewById(R.id.linearLayout);
@@ -56,8 +57,20 @@ public class UsersPost extends AppCompatActivity
                 {
                     for(ParseObject post:objects)
                     {
-                        final TextView postDescrition=new TextView(UsersPost.this);
-                        postDescrition.setText(post.get("image_des")+"");
+
+                        TextView postDescription=new TextView(UsersPost.this);
+
+                        LinearLayout.LayoutParams des_params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                        des_params.setMargins(5,5,5,15);
+                        postDescription.setLayoutParams(des_params);
+                        postDescription.setGravity(Gravity.CENTER);
+                        postDescription.setBackgroundColor(Color.YELLOW);
+                        postDescription.setTextColor(Color.RED);
+                        postDescription.setTextSize(30f);
+                        postDescription.setText(post.get("img_des")+"");
+                        linearLayout.addView(postDescription);
+
+                        //for getting picture
                         ParseFile postPicture=(ParseFile)post.get("picture");
                         postPicture.getDataInBackground(new GetDataCallback()
                         {
@@ -76,18 +89,7 @@ public class UsersPost extends AppCompatActivity
                                     postImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                                     postImageView.setImageBitmap(bitmap);
 
-
-                                    LinearLayout.LayoutParams des_params=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                                    des_params.setMargins(5,5,5,15);
-                                    postDescrition.setLayoutParams(des_params);
-                                    postDescrition.setGravity(Gravity.CENTER);
-                                    postDescrition.setBackgroundColor(Color.BLUE);
-                                    postDescrition.setTextColor(Color.WHITE);
-                                    postDescrition.setTextSize(30f);
-
                                     linearLayout.addView(postImageView);
-                                    linearLayout.addView(postDescrition);
-
                                 }
 
                             }
@@ -97,6 +99,7 @@ public class UsersPost extends AppCompatActivity
                 else//no objects
                     {
                         FancyToast.makeText(UsersPost.this,recievedUserName+" doesn't have any post", Toast.LENGTH_SHORT,FancyToast.ERROR,false).show();
+                        finish();
                 }
                 dialog.dismiss();
 

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -74,7 +73,7 @@ public class SocialMediaActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.postImageItem)
         {
-            if(Build.VERSION.SDK_INT>=23 && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
+            if(android.os.Build.VERSION.SDK_INT>=23 && checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
             {
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},3000);
             }
@@ -93,6 +92,7 @@ public class SocialMediaActivity extends AppCompatActivity
         return  super.onOptionsItemSelected(item);
     }
 
+    //function if user deniis or make aceept
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -101,7 +101,6 @@ public class SocialMediaActivity extends AppCompatActivity
        {
            if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED)
            {
-
                captureImage();
            }
        }
@@ -121,7 +120,7 @@ public class SocialMediaActivity extends AppCompatActivity
         {
             try{
                 Uri capturedImage=data.getData();
-
+                bitmap=MediaStore.Images.Media.getBitmap(this.getContentResolver(),capturedImage);
                 ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
                 byte[] bytes=byteArrayOutputStream.toByteArray();
